@@ -21,4 +21,5 @@ map j gj
 map k gk
 set pastetoggle=<F2>
 
-autocmd Filetype javascript,css,html,json,yaml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype javascript,nim,haskell,css,html,json,yaml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+
