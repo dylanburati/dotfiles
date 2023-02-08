@@ -8,7 +8,7 @@ audible-bell=false" > /tmp/gnome-shell-flatui.dconf
 dconf load /org/gnome/terminal/legacy/profiles:/ < /tmp/gnome-shell-flatui.dconf
 
 sudo apt-get update && sudo apt-get upgrade
-sudo apt install curl git tmux vim zsh
+sudo apt install curl git jq sqlite3 tmux vim zsh
 #... load .vimrc
 git config --global user.email "dylanburati@protonmail.com"
 git config --global user.name "Dylan Burati"
@@ -66,8 +66,17 @@ asdf plugin add java
 asdf install java adoptopenjdk-jre-17.0.6+10
 asdf global java adoptopenjdk-jre-17.0.6+10
 
+asdf plugin add nodejs
+#$ asdf list-all nodejs | less
+asdf install nodejs 18.14.0
+asdf global nodejs 18.14.0
+
+asdf plugin add nim
+#$ asdf list-all nim | less
+asdf install nim latest
+asdf global nim 1.6.10
+
 #$ sudo mkdir /media/dylan/easystore
 #$ sudo mount -t ntfs-3g -o windows_names,big_writes,uid=1000,gid=1000 /dev/sda1 /media/dylan/easystore
 echo '# Removes color override for other-writable directories (all dirs in NTFS mounts are other-writable)
 export LS_COLORS="$(echo "$LS_COLORS" | sed 's/ow=[^:]*/ow=01;34/' | head -n1)"' >> ~/.zshrc
-
