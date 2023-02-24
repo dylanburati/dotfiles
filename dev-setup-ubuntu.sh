@@ -63,8 +63,8 @@ asdf global golang 1.20
 
 asdf plugin add java
 #$ asdf list-all java | less
-asdf install java adoptopenjdk-jre-17.0.6+10
-asdf global java adoptopenjdk-jre-17.0.6+10
+asdf install java adoptopenjdk-17.0.6+10
+asdf global java adoptopenjdk-17.0.6+10
 
 asdf plugin add nodejs
 #$ asdf list-all nodejs | less
