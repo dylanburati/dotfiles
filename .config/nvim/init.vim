@@ -28,6 +28,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 Plug 'mhinz/vim-signify'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
@@ -164,6 +165,9 @@ autocmd BufLeave term://* stopinsert
 let g:python3_host_prog = '~/.config/nvim/env/bin/python3'
 let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 
+" Autopairs
+let g:AutoPairsMultilineClose = 0
+
 """ Core plugin configuration (lua)
 lua << EOF
 servers = {
@@ -171,7 +175,37 @@ servers = {
     'gopls',
     'jdtls',
     'rust_analyzer',
-    'tsserver', -- uncomment for typescript. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
+    'yamlls',
+    'vtsls',
+    'lua_ls',
+    'ccls',
+    'nimls',
+    'zls',
+    -- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
+}
+lsp_settings = {
+  python = {
+    analysis = {
+      autoSearchPaths = true,
+      useLibraryCodeForTypes = true,
+      diagnosticMode = 'openFilesOnly',
+    },
+  },
+  gopls = {
+    gofumpt = true,
+  },
+  Lua = {
+    runtime = {
+      -- Tell the language server which version of Lua you're using
+      -- (most likely LuaJIT in the case of Neovim)
+      version = 'LuaJIT'
+    },
+    workspace = {
+      library = {
+        "${3rd}/love2d/library",
+      },
+    },
+  }
 }
 require('treesitter-config')
 require('nvim-cmp-config')
@@ -221,6 +255,9 @@ nmap <leader>gf :let @* = fnamemodify(expand("%"), ":~:.")<CR>:lua vim.notify(vi
 autocmd Filetype python nmap <leader>d <Plug>(pydocstring)
 autocmd FileType python nmap <leader>p :Black<CR>
 
+" Go
+autocmd Filetype go setlocal tabstop=4
+
 " Solidity (requires: npm install --save-dev prettier prettier-plugin-solidity)
 "autocmd Filetype solidity nmap <leader>p :0,$!npx prettier %<CR>
 
@@ -231,3 +268,4 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
 nnoremap <leader>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>f' <cmd>lua require('telescope.builtin').resume()<cr>
